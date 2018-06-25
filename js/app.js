@@ -1,14 +1,35 @@
-/*
- * Create a list that holds all of your cards
- */
+// create card array  
+let card_names = ["fa fa-diamond", "fa fa-paper-plane-o", "fa fa-anchor", "fa fa-bolt", "fa fa-cube", "fa fa-anchor", "fa fa-leaf", "fa fa-bicycle", "fa fa-diamond", "fa fa-bomb", "fa fa-leaf", "fa fa-bomb", "fa fa-bolt", "fa fa-bicycle", "fa fa-paper-plane-o", "fa fa-cube"];
 
 
-/*
- * Display the cards on the page
- *   - shuffle the list of cards using the provided "shuffle" method below
- *   - loop through each card and create its HTML
- *   - add each card's HTML to the page
- */
+// assign var to create cards
+const deck = $('#cardBoard') [0];
+
+
+// Start Game
+startGame();
+
+
+// Displays Deck on page; clearing it first.
+function createDeck() {
+    // Remove existing deck (children) - https://stackoverflow.com/questions/3955229/remove-all-child-elements-of-a-dom-node-in-javascript 
+    while(deck.hasChildNodes() ){
+        deck.removeChild(deck.firstChild);
+    }
+
+    // Loop adding class card,i, and adding card names
+    for (let i = 0; i < card_names.length; i++) {
+
+        const newCard = document.createElement('li');
+        newCard.className = "card";
+        const newCardData = document.createElement('i');
+        newCardData.className = card_names[i];
+
+        const addNewCardData = newCard.appendChild(newCardData);
+        const addNewCard = deck.appendChild(newCard);
+    }
+}
+
 
 // Shuffle function from http://stackoverflow.com/a/2450976
 function shuffle(array) {
@@ -25,14 +46,8 @@ function shuffle(array) {
     return array;
 }
 
-
-/*
- * set up the event listener for a card. If a card is clicked:
- *  - display the card's symbol (put this functionality in another function that you call from this one)
- *  - add the card to a *list* of "open" cards (put this functionality in another function that you call from this one)
- *  - if the list already has another card, check to see if the two cards match
- *    + if the cards do match, lock the cards in the open position (put this functionality in another function that you call from this one)
- *    + if the cards do not match, remove the cards from the list and hide the card's symbol (put this functionality in another function that you call from this one)
- *    + increment the move counter and display it on the page (put this functionality in another function that you call from this one)
- *    + if all cards have matched, display a message with the final score (put this functionality in another function that you call from this one)
- */
+// Function to play game.
+function startGame() {
+  shuffle(card_names);
+  createDeck();
+}
