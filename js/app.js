@@ -7,12 +7,17 @@ let card_names = ["fa fa-diamond", "fa fa-paper-plane-o", "fa fa-anchor", "fa fa
     total_clicks = 0,
     game_started = false;
 
+stars=3;
+
 // assign varibles from index.html
 const deck = $('#cardBoard')[0],
-    moves = $('#moves').children();
-    show_score = $('.show-score').children();
-    restart = $('#restart').children();
-    timer = $('#timer').children();
+    moves = $('#moves').children(),
+    show_score = $('.show-score').children(),
+    restart = $('#restart').children(),
+    timer = $('#timer').children(),
+    stars1 = document.getElementById('stars1'),
+    stars2 = document.getElementById('stars2'),
+    stars3 = document.getElementById('stars3');
 
 
 
@@ -79,6 +84,9 @@ deck.addEventListener('click', function(event) {
         if (event.target.className === "card") {
             total_clicks += 1;
             flipOver();
+             if (total_clicks === 2) {
+                increaseMoveCount();
+            }
         }
 
         if (open_cards.length != 2 && event.target.className === "card open show" && shown_cards.length != 2) {
@@ -110,9 +118,24 @@ deck.addEventListener('click', function(event) {
     }
 });
 
+// function to decrease score based on move count, star starts at 3
+function increaseMoveCount() {
+    move_count += 1;
+    moves.innerHTML = move_count;
+
+    if (move_count === 10) {
+        stars1.style.display = "none";
+        stars -= 1;
+    } else if (move_count === 20) {
+        stars2.style.display = "none";
+        stars -= 1;
+    }
+}
+
 
 // Function to play game.
 function play() {
     createDeck();
     shuffle(card_names);
 }
+
