@@ -19,10 +19,15 @@ let timer = 0,
 const deck = $('#cardBoard')[0],
     moves = document.querySelector('.moves'),
     show_score = $('.show-score').children(),
-    restart = $('#restart').children(),
+    
     stars1 = document.getElementById('stars1'),
     stars2 = document.getElementById('stars2'),
     stars3 = document.getElementById('stars3');
+
+
+// reset functions
+const reset_game = document.querySelector('.restart');
+reset_game.addEventListener('click',restartPlay);
 
 
 
@@ -32,7 +37,8 @@ play();
 
 // Displays Deck on page; clearing it first.
 function createDeck() {
-    // Remove  Children 
+    // Remove  Children - while statement to not remove after restart
+    while (deck.hasChildNodes()){
         deck.removeChild(deck.firstChild);
     }
 
@@ -47,7 +53,7 @@ function createDeck() {
         const addNewCardData = newCard.appendChild(newCardData);
         const addNewCard = deck.appendChild(newCard);
     }
-
+}
 
 // Shuffle function from http://stackoverflow.com/a/2450976 - udacity provdied 
 function shuffle(array) {
@@ -65,18 +71,11 @@ function shuffle(array) {
     return array;
 }
 
-// Function to play game, create deck and shuffle 
-function startGame() {
-    shuffle(card_names);
-    createDeck();
-}
-
 // function to add open and show css classes 
 function flipOver() {
     event.target.classList.add('open');
     event.target.classList.add('show');
 }
-
 
 
 // Main function to monitor clicks, prevent single card match, add defined animations from css
@@ -158,4 +157,19 @@ function startTimer() {
     timer += 1;
     $("#timer").html(timer);
     timeStart = setTimeout(startTimer, 1000);
+}
+
+// Restart Game 
+function restartPlay() {
+    timer = 0;
+    stars = 3;
+    clearTimeout(timeStart);
+    document.getElementById('timer').innerHTML = 0;
+    play();
+    move_count= 0;
+    moves.innerHTML = 0;
+    matched_cards = 0;
+    stars1.style.display = "block";
+    stars2.style.display = "block";
+    stars3.style.display = "block";
 }
