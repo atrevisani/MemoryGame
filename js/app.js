@@ -17,7 +17,7 @@ let timer = 0,
 
 // assign varibles from index.html
 const deck = $('#cardBoard')[0],
-    moves = $('#moves').children(),
+    moves = document.querySelector('.moves'),
     show_score = $('.show-score').children(),
     restart = $('#restart').children(),
     stars1 = document.getElementById('stars1'),
@@ -148,7 +148,8 @@ function play() {
     createDeck();
     shuffle(card_names);
     startTimer();
-    stars=3;
+    moves.innerHTML=move_count;
+
 
 }
 
