@@ -9,12 +9,17 @@ let card_names = ["fa fa-diamond", "fa fa-paper-plane-o", "fa fa-anchor", "fa fa
 
 stars=3;
 
+//time vars
+let timer = 0,
+    timeStart; 
+
+
+
 // assign varibles from index.html
 const deck = $('#cardBoard')[0],
     moves = $('#moves').children(),
     show_score = $('.show-score').children(),
     restart = $('#restart').children(),
-    timer = $('#timer').children(),
     stars1 = document.getElementById('stars1'),
     stars2 = document.getElementById('stars2'),
     stars3 = document.getElementById('stars3');
@@ -22,7 +27,7 @@ const deck = $('#cardBoard')[0],
 
 
 // Start Game
-startGame();
+play();
 
 
 // Displays Deck on page; clearing it first.
@@ -73,6 +78,7 @@ function flipOver() {
 }
 
 
+
 // Main function to monitor clicks, prevent single card match, add defined animations from css
 
 deck.addEventListener('click', function(event) {
@@ -115,6 +121,10 @@ deck.addEventListener('click', function(event) {
                 }, 1000);
             }
         }
+        //win condition 
+        if (matched_cards === 8) {
+            clearTimeout(timeStart);
+        }
     }
 });
 
@@ -137,5 +147,14 @@ function increaseMoveCount() {
 function play() {
     createDeck();
     shuffle(card_names);
+    startTimer();
+    stars=3;
+
 }
 
+// Function to start game timer.
+function startTimer() {
+    timer += 1;
+    $("#timer").html(timer);
+    timeStart = setTimeout(startTimer, 1000);
+}
