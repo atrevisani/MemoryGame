@@ -2,7 +2,7 @@
 let card_names = ["fa fa-diamond", "fa fa-paper-plane-o", "fa fa-anchor", "fa fa-bolt", "fa fa-cube", "fa fa-anchor", "fa fa-leaf", "fa fa-bicycle", "fa fa-diamond", "fa fa-bomb", "fa fa-leaf", "fa fa-bomb", "fa fa-bolt", "fa fa-bicycle", "fa fa-paper-plane-o", "fa fa-cube"],
     open_cards = [],
     shown_cards = [],
-    matched_cards =[],
+    matched_cards =0,
     move_count = 0,
     total_clicks = 0,
     game_started = false;
@@ -29,7 +29,11 @@ const deck = $('#cardBoard')[0],
 const reset_game = document.querySelector('.restart');
 reset_game.addEventListener('click',restartPlay);
 
+// Play again
+const play_again = document.querySelector('.play-again');
+play_again.addEventListener('click', playAgain);
 
+const modal = document.getElementById('winning-modal');
 
 // Start Game
 play();
@@ -98,9 +102,10 @@ deck.addEventListener('click', function(event) {
             open_cards.push(event.target.childNodes[0].className);
             shown_cards.push(event.target);
         }
-        // Checks cards after 2 cards have been select, adds animations from given css 
+        // Checks cards after 2 cards have been select
         if (open_cards.length > 1) {
             if (open_cards[0] === open_cards[1]) {
+                increaseScore();
                 setTimeout(function() {
                     open_cards = [];
                     shown_cards = [];
@@ -123,6 +128,7 @@ deck.addEventListener('click', function(event) {
         //win condition 
         if (matched_cards === 8) {
             clearTimeout(timeStart);
+            showModal();
         }
     }
 });
@@ -148,8 +154,7 @@ function play() {
     shuffle(card_names);
     startTimer();
     moves.innerHTML=move_count;
-
-
+    modal.style.display = "none";
 }
 
 // Function to start game timer.
@@ -173,3 +178,24 @@ function restartPlay() {
     stars2.style.display = "block";
     stars3.style.display = "block";
 }
+
+function increaseScore() {
+    matched_cards += 1;
+    console.log(matched_cards);
+;}
+
+// shows modal and inserts last star, moves and time
+function showModal() {
+    modal.style.display = "block";
+    $("#num-stars").html(stars);
+    $("#finalMoves").html(moves);
+    $("#endTime").html(timer);
+};
+
+
+// playagain button - calls restart play and hides modal 
+function playAgain() {
+    restartPlay();
+    modal.style.display = "none";
+}
+
