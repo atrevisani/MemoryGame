@@ -2,16 +2,16 @@
 let card_names = ["fa fa-diamond", "fa fa-paper-plane-o", "fa fa-anchor", "fa fa-bolt", "fa fa-cube", "fa fa-anchor", "fa fa-leaf", "fa fa-bicycle", "fa fa-diamond", "fa fa-bomb", "fa fa-leaf", "fa fa-bomb", "fa fa-bolt", "fa fa-bicycle", "fa fa-paper-plane-o", "fa fa-cube"],
     open_cards = [],
     shown_cards = [],
-    matched_cards =0,
+    matched_cards = 0,
     move_count = 0,
     total_clicks = 0,
     game_started = false;
 
-stars=3;
+stars = 3;
 
 //time vars
 let timer = 0,
-    timeStart; 
+    timeStart;
 
 
 
@@ -19,7 +19,7 @@ let timer = 0,
 const deck = $('#cardBoard')[0],
     moves = document.querySelector('.moves'),
     show_score = $('.show-score').children(),
-    
+
     stars1 = document.getElementById('stars1'),
     stars2 = document.getElementById('stars2'),
     stars3 = document.getElementById('stars3');
@@ -27,7 +27,7 @@ const deck = $('#cardBoard')[0],
 
 // reset functions
 const reset_game = document.querySelector('.restart');
-reset_game.addEventListener('click',restartPlay);
+reset_game.addEventListener('click', restartPlay);
 
 // Play again
 const play_again = document.querySelector('.play-again');
@@ -42,7 +42,7 @@ play();
 // Displays Deck on page; clearing it first.
 function createDeck() {
     // Remove  Children - while statement to not remove after restart
-    while (deck.hasChildNodes()){
+    while (deck.hasChildNodes()) {
         deck.removeChild(deck.firstChild);
     }
 
@@ -93,7 +93,7 @@ deck.addEventListener('click', function(event) {
         if (event.target.className === "card") {
             total_clicks += 1;
             flipOver();
-             if (total_clicks === 2) {
+            if (total_clicks === 2) {
                 increaseMoveCount();
             }
         }
@@ -113,7 +113,7 @@ deck.addEventListener('click', function(event) {
                 }, 100);
 
             } else if (open_cards[0] != open_cards[1]) {
-             
+
                 setTimeout(function() {
                     shown_cards[0].classList.remove('open');
                     shown_cards[0].classList.remove('show');
@@ -153,7 +153,7 @@ function play() {
     createDeck();
     shuffle(card_names);
     startTimer();
-    moves.innerHTML=move_count;
+    moves.innerHTML = move_count;
     modal.style.display = "none";
 }
 
@@ -171,7 +171,7 @@ function restartPlay() {
     clearTimeout(timeStart);
     document.getElementById('timer').innerHTML = 0;
     play();
-    move_count= 0;
+    move_count = 0;
     moves.innerHTML = 0;
     matched_cards = 0;
     stars1.style.display = "block";
@@ -181,8 +181,8 @@ function restartPlay() {
 
 function increaseScore() {
     matched_cards += 1;
-    console.log(matched_cards);
-;}
+    console.log(matched_cards);;
+}
 
 // shows modal and inserts last star, moves and time
 function showModal() {
@@ -198,4 +198,3 @@ function playAgain() {
     restartPlay();
     modal.style.display = "none";
 }
-
