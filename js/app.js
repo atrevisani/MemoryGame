@@ -82,7 +82,7 @@ function flipOver() {
 }
 
 
-// Main function to monitor clicks, prevent single card match, add defined animations from css
+// Main function to monitor clicks, prevent single card match
 
 deck.addEventListener('click', function(event) {
     if (event.target.classList.contains('open')) {
